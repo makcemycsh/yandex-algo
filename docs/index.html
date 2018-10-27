@@ -69,6 +69,7 @@
     '{[true]}',
     '>{false}',
     '[{false]}',
+    '{{[[[{{true}}]]]}}',
     '{true}<true>',
     'fa[ls{e}>]'
   ];
@@ -82,16 +83,30 @@
 
   function cheackBreackPoints(string) {
     const breackPoints = {
-      openSign: ['<', '{', '[', '('],
-      closeSign: ['>', '}', ']', ')'],
+      openSign: {
+        '<': true,
+        '{': true,
+        '[': true,
+        '(': true
+      },
+      closeSign: {
+        '>': '<',
+        '}': '{',
+        ']': '[',
+        ')': '('
+      },
       stack: []
     };
 
-    for (let i = 0; i < string.length; i++) {
-      if (breackPoints.openSign.indexOf(string[i]) !== -1) breackPoints.stack.unshift(string[i]);
-      if (breackPoints.closeSign.indexOf(string[i]) !== -1) {
-        let indexPoint = breackPoints.closeSign.indexOf(string[i]);
-        if (indexPoint !== breackPoints.openSign.indexOf(breackPoints.stack[0])) return false;
+    for (let sign of string) {
+      if (sign in breackPoints.openSign) {
+        breackPoints.openSign[sign] = false;
+        breackPoints.stack.unshift(sign);
+      }
+      if (sign in breackPoints.closeSign) {
+        let pointValue = breackPoints.closeSign[sign];
+        if (breackPoints.openSign[pointValue] === true) return false;
+        if (pointValue !== breackPoints.stack[0]) return false;
         breackPoints.stack.shift();
       }
     }
