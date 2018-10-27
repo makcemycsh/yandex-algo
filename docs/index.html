@@ -62,7 +62,43 @@
   console.log('arr ' + testArr2);
   console.log('after arr:');
 
+
   console.log(arrSortSelected(testArr2));
+  const testStrings = [
+    '<true>',
+    '{[true]}',
+    '>{false}',
+    '[{false]}',
+    '{true}<true>',
+    'fa[ls{e}>]'
+  ];
+  console.log('');
+  console.log('cheackBreackPoints');
+  console.log('strings:');
+  testStrings.forEach((el) => {
+    console.log(el);
+    console.log(cheackBreackPoints(el));
+  });
+
+  function cheackBreackPoints(string) {
+    const breackPoints = {
+      openSign: ['<', '{', '[', '('],
+      closeSign: ['>', '}', ']', ')'],
+      stack: []
+    };
+
+    for (let i = 0; i < string.length; i++) {
+      if (breackPoints.openSign.indexOf(string[i]) !== -1) breackPoints.stack.unshift(string[i]);
+      if (breackPoints.closeSign.indexOf(string[i]) !== -1) {
+        let indexPoint = breackPoints.closeSign.indexOf(string[i]);
+        if (indexPoint !== breackPoints.openSign.indexOf(breackPoints.stack[0])) return false;
+        breackPoints.stack.shift();
+      }
+    }
+    return true;
+  }
+
+
 </script>
 </body>
 </html>
