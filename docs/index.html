@@ -113,6 +113,77 @@
     return true;
   }
 
+  console.log("");
+  console.log('TREE');
+
+  const tree = {
+    value: "F",
+    left: {
+      value: 'E',
+      left: {
+        value: 'A',
+      },
+      right: {
+        value: 'D',
+        left: {
+          value: 'B',
+        },
+        right: {
+          value: 'C',
+        }
+      }
+    },
+    right: {
+      value: 'H',
+      left: {
+        value: 'G',
+      },
+      right: {
+        value: 'I',
+      }
+    }
+  };
+  let stringPreOrder = '';
+  let stringInOrder = '';
+  let stringPostOrder = '';
+
+  console.log(tree);
+
+  console.log("");
+  console.log('preOrder');
+  preOrder(tree);
+  console.log(stringPreOrder);
+
+  function preOrder(tree) {
+    if (!tree) return false;
+    stringPreOrder = stringPreOrder + tree.value;
+    if (tree.left) preOrder(tree.left);
+    if (tree.right) preOrder(tree.right);
+  }
+
+  console.log("");
+  console.log('inOrder');
+  inOrder(tree);
+  console.log(stringInOrder);
+
+  function inOrder(tree) {
+    if (!tree.value) return false;
+    if (tree.left) inOrder(tree.left);
+    stringInOrder = stringInOrder + tree.value;
+    if (tree.right) inOrder(tree.right);
+  }
+
+  console.log("");
+  console.log('postOrder');
+  postOrder(tree);
+  console.log(stringPostOrder);
+
+  function postOrder(tree) {
+    if (!tree.value) return false;
+    if (tree.left) postOrder(tree.left);
+    if (tree.right) postOrder(tree.right);
+    stringPostOrder = stringPostOrder + tree.value;
+  }
 
 </script>
 </body>
