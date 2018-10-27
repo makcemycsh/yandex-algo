@@ -40,15 +40,18 @@
     let min = 0;
     let current = 0;
     let step = 0;
-    main: for (let i = step; i < length; i++) {
-      for (let j = step; j < length; j++) {
-        if (arr[i] > arr[j]) continue main;
+    step: while (step < length) {
+      main: for (let i = step; i < length; i++) {
+        for (let j = step; j < length; j++) {
+          if (arr[i] > arr[j]) continue main;
+        }
+        min = arr[i];
+        current = arr[step];
+        arr[i] = current;
+        arr[step] = min;
+        step++;
+        continue step;
       }
-      min = arr[i];
-      current = arr[step];
-      arr[i] = current;
-      arr[step] = min;
-      step++;
     }
     return arr;
   }
