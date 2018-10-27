@@ -33,35 +33,36 @@
   }
 
 
-  const testArr1 = [1];
+  // const testArr1 = [1];
   const testArr2 = [5, 235, 3, 43, 214, 234, 3, 53, 6, 23, 14, 234, 4, 6];
 
-  function arrSortSelected(arr1, arr2) {
-    while (arr2.length > 0) {
-      let minElementIndex = findMinElementIndex(arr2);
-      arr1.push(arr2[minElementIndex]);
-      arr2.splice(minElementIndex, 1);
-    }
-    return arr1;
-  }
-
-  function findMinElementIndex(arr) {
-    main: for (let i = 0; i < arr.length; i++) {
-      for (let j = 0; j < arr.length; j++) {
-        if (arr[i] > arr[j]) continue main;
+  function arrSortSelected(arr) {
+    const length = arr.length;
+    let index = 0;
+    let min = 0;
+    let step = 0;
+    step: while (step < length) {
+      main: for (let i = step; i < length; i++) {
+        for (let j = step; j < length; j++) {
+          if (arr[i] > arr[j]) continue main;
+        }
+        min = arr[i];
+        arr.splice(i, 1);
+        arr.splice(step, 0, min);
+        step++;
+        continue step;
       }
-      return i;
     }
+    return arr;
   }
 
   console.log('');
   console.log('arrSortSelected');
   console.log('before:');
-  console.log('arr1 ' + testArr1);
-  console.log('arr2 ' + testArr2);
-  console.log('after arr1:');
+  console.log('arr ' + testArr2);
+  console.log('after arr:');
 
-  console.log(arrSortSelected(testArr1, testArr2));
+  console.log(arrSortSelected(testArr2));
 </script>
 </body>
 </html>
